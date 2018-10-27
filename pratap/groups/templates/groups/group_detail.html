@@ -1,0 +1,59 @@
+{% extends "groups/group_base.html" %}
+
+{% block pregroup %}
+<br><br><br>
+<div class="jumbotron group-top" >
+<h1 class="font-weight-bold font-italic">{{group.name}}</h1>
+<h2>About the Group:</h2><h3>{{group.description}}</h3>
+<h6> Member Count: {{group.members.count}}
+  <div class="content">
+
+
+        {% if user in group.members.all %}
+          <a href="{% url 'groups:leave' slug=group.slug %}" class="btn btn-lg btn-fill btn-warning"><h1> Leave</h1></a>
+        {% else %}
+          <a href="{% url 'groups:join' slug=group.slug %}" class="btn btn-lg btn-fill btn-warning"><h3> Join</h3></a>
+        {% endif %}
+
+</h6>
+</div>
+</div>
+
+
+
+
+
+
+
+<br>
+{% endblock %}
+
+
+{% block group_content %}
+
+
+<div class="container well ">
+  {% if group.posts.count == 0 %}
+  <h2>No posts in this group yet!</h2>
+
+</div>
+
+
+
+  	{% else %}
+
+
+  		{% for post in group.posts.all %}
+
+
+  			{% include "posts/_post.html" %}
+
+
+      <br>
+  		{% endfor %}
+
+  	{% endif %}
+  </div>
+</div>
+
+{% endblock %}

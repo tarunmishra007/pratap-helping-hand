@@ -1,0 +1,78 @@
+{% extends "groups/group_base.html" %}
+{% block pregroup %}
+
+<div class="hero-wrap2"  data-stellar-background-ratio="0.5">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
+          <div class="col-md-7 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
+             <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="index.html">Home</a></span> <span>Donate</span></p>
+            <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Donations</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+<div class="col-md-4" style="background:#9FB3AD;">
+	<div class="content">
+<h1>		{% if user.is_authenticated %}
+		<h2>
+			Welcome
+			<a href="{% url 'posts:for_user' username=user.username %}">@{{user.username }}</a>
+		</h2>
+
+    {% endif %}
+		{% if user.is_authenticated %}
+		<a href="{% url 'groups:create' %}" class="btn btn-lg btn-fill btn-warning"> Create New Group!</a>
+		{% endif %}
+
+	<h4 class="font-weight-bold font-italic">“
+
+No one is useless in this world who lightens the burdens of another.
+
+</h4>
+<span class="text-danger">Charles Dickens</span>
+
+
+
+			<h4 class="font-weight-bold font-italic">"We are all here on earth to help others; what on earth the others are here for I don't know."
+ </h4>
+<span class="text-danger">-W. H. Auden</span>
+
+	</div>
+	<br>
+	<br>
+
+	<div class="abc" style="background:black">
+		<h1><a href="{%url 'home'%}">Home</a><br><br>
+
+			<a href="{%url 'groups:create'%}"> Create a New Group</a>
+<br><br>
+<a href="{%url 'posts:create'%}">APPEAL FOR HE</a>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block group_content %}
+<div class="col-md-8">
+	<div class="list-group">
+		{% for group in object_list %}
+		  <a class="list-group-item" href="{% url 'groups:single' slug=group.slug %}">
+			     <h3 class="title list-group-item-heading">{{ group.name }}</h3>
+			<div class="list-group-item-text container-fluid">
+				{{ group.description_html|safe }}
+				<div class="row">
+					<div class="col-md-4">
+						<span class="badge">{{ group.members.count }}</span> member{{ group.members.count|pluralize }}
+					</div>
+					<div class="col-md-4">
+						<span class="badge">{{ group.posts.count }}</span> post{{ group.posts.count|pluralize }}
+					</div>
+				</div>
+			</div>
+		</a>
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}
+</div>
